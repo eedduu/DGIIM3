@@ -2,6 +2,8 @@
 
 **Monitor:** estructura de datos que se puede usar en diferentes hilos de ejecución ya que sus métodos se ejecutan en exclusión mutua. Los monitores nos servirán como comunicación entre un proceso productor y uno consumidor.
 
+**Cerrojo del monitor:** objeto de tipo `mutex` para acceder a las variables del monitor.
+
 //La semantica SC de la pagina 36 no vale para varios consumidores.
 
 ## Lock guards
@@ -34,8 +36,6 @@ En este caso, el monitor tendrá un método llamado `cita()`, al que llama una h
 
 La idea es la misma que la anterior, solo que agrupamos a las _n_ hebras en grupos de _m_ hebras. Sólo hay una cita activa a la vez, de manera que las hebras que se ejecuten primero llamarán antes a cita y esperarán, la hebra número _m_ desbloqueará a las anteriores. Hasta que no empiecen a salir las hebras de una cita, no pueden llegar nuevas hebras a la cita. La salida de la cita _k_ se puede mezclar con la entrada de la cita _k+1_, ya que en cuanto empiezan a salir el contador se pone a 0.
 
-### Solución Prod/Cons
-
 ## Monitores Señalar y espera urgente
 
 Hay una cola de espera urgente a parte de la normal. Cuando una hebra hace `signal()` sobre una cola, esa hebra pasa a la cola de espera urgente, mientras que se le da el cerrojo a la hebra a la que se hace signal. Cuando una hebra hace `wait()` y deja el cerrojo, se le da el cerrojo a una hebra de la cola de urgentes en política FIFO. Si la cola de urgentes está vacía, entonces se le da a una de cola normal.
@@ -47,4 +47,4 @@ Hay una cola de espera urgente a parte de la normal. Cuando una hebra hace `sign
 - **get_nwt()**: devuelve el nº de hebras esperando
 - **empty()**: devuelve `true` si no hay hebras esperando y `false` si hay una o más en espera.
 
-  ### Barrera
+### Barrera
