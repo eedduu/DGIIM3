@@ -62,7 +62,7 @@ void Barberia::cortarPelo(int i){
 
   //Una vez le han llamado, se sienta en la silla.
   mtx.lock();
-  cout << "Cliente " << i << " se sienta en la sila" << endl;
+  cout << "Cliente " << i << " se sienta en la silla" << endl;
   mtx.unlock();
 
   silla.wait();
